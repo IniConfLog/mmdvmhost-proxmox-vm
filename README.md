@@ -131,7 +131,7 @@ sudo systemctl start mmdvmhost
 sudo systemctl status mmdvmhost
 sudo journalctl -u mmdvmhost -f
 ```
-Если все прошло удачно должны увидить примерно следующее:
+Если все прошло удачно вы увидите примерно следующее:
 ``` Bash
 sudo journalctl -u mmdvmhost -f
 ● mmdvmhost.service - MMDVMHost
