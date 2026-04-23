@@ -109,12 +109,15 @@ Description=MMDVMHost
 After=network.target
 
 [Service]
-Type=simple
 User=mmdvm
 Group=mmdvm
-ExecStart=/opt/MMDVMHost/MMDVMHost /etc/mmdvm/MMDVMHost.ini
-Restart=always
-RestartSec=3
+ExecStart=/opt/MMDVMHost/MMDVMHost /opt/MMDVMHost/MMDVMHost.ini
+
+Restart=on-failure
+RestartSec=5
+
+StartLimitIntervalSec=120
+StartLimitBurst=3
 
 [Install]
 WantedBy=multi-user.target
