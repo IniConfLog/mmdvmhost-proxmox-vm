@@ -69,15 +69,9 @@ cd /opt/MMDVMHost
 sudo -u mmdvm make clean
 sudo -u mmdvm make -j$(nproc)
 ```
-8. Создаем отдельную папку /etc/mmdvm для файла конфигурации и копируем в нее исходный файл конфигурации MMDVMHost.ini
+8. Открыаем файл конфигурации MMDVMHost.ini для редактирования:
 ``` Bash
-sudo mkdir -p /etc/mmdvm
-sudo cp /opt/MMDVMHost/MMDVMHost.ini /etc/mmdvm/MMDVMHost.ini
-sudo chown -R mmdvm:mmdvm /etc/mmdvm
-```
-9. Открыаем файл конфигурации MMDVMHost.ini для редактирования:
-``` Bash
-sudo nano /etc/mmdvm/MMDVMHost.ini
+sudo nano /opt/MMDVMHost/MMDVMHost.ini
 ```
 Минимально рабочая конфигурация:
 ``` Bash
