@@ -95,7 +95,7 @@ TXDelay=100
 - Если установлен чип STM32F4xx или STM32F7xx - UARTSpeed=115200;
 - Если установлен более новый чип STM32F105xx - UARTSpeed=460800;
 - Чаще всего на китайских модемах установлены старые чипы, новые установлены на модемах разработанных Алексеем RN6LJT в 2024/2025 годах.
-10. Создаем системный фоновый сервис, который будет обеспечивать:
+9. Создаем системный фоновый сервис, который будет обеспечивать:
 - автозапуск программы при старте системы;
 - постоянную работу в фоне;
 - автоматический перезапуск при падении;
@@ -122,13 +122,13 @@ StartLimitBurst=3
 [Install]
 WantedBy=multi-user.target
 ```
-11. Запускаем сервис
+10. Запускаем сервис
 ``` Bash
 sudo systemctl daemon-reload
 sudo systemctl enable mmdvmhost
 sudo systemctl start mmdvmhost
 ```
-12. Проверяем статус
+11. Проверяем статус
 ``` Bash
 sudo systemctl status mmdvmhost
 sudo journalctl -u mmdvmhost -f
