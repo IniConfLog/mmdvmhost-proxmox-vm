@@ -135,15 +135,16 @@ sudo journalctl -u mmdvmhost -f
 ```
 Если все прошло удачно вы увидите примерно следующее:
 ``` Bash
+atos@MMDVMHost:~$ sudo systemctl status mmdvmhost
 sudo journalctl -u mmdvmhost -f
 ● mmdvmhost.service - MMDVMHost
      Loaded: loaded (/etc/systemd/system/mmdvmhost.service; enabled; preset: enabled)
-     Active: active (running) since Tue 2026-04-21 07:15:40 MSK; 3h 29min ago
- Invocation: 9616c8c8de41406eb1de74e660d8f07e
-   Main PID: 4849 (MMDVMHost)
-      Tasks: 2 (limit: 2300)
+     Active: active (running) since Thu 2026-04-23 16:41:42 MSK; 1h 48min ago
+ Invocation: 8fdbdb36de054633a854c60fcb520dd1
+   Main PID: 890 (MMDVMHost)
+      Tasks: 3 (limit: 2300)
      Memory: 1.1M (peak: 1.8M)
-        CPU: 1min 25.540s
+        CPU: 46.810s
      CGroup: /system.slice/mmdvmhost.service
-             └─4849 /opt/MMDVMHost/MMDVMHost /etc/mmdvm/MMDVMHost.ini
+             └─890 /opt/MMDVMHost/MMDVMHost /opt/MMDVMHost/MMDVMHost.ini
 ```
