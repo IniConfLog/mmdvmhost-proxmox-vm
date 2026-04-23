@@ -1,13 +1,6 @@
-<<<<<<< HEAD
 # Инструкция по установке и настройке MMDVMHost + DMRGateway в виртуальной машине Proxmox с USB FTDI модемом.
 
 ⚠️ Требования к виртуальной машине (ВМ):
-=======
-# 📡 MMDVMHost on Proxmox VM
-
-Clean and reproducible installation guide for MMDVMHost running in a Proxmox virtual machine with USB FTDI modem passthrough.
->>>>>>> 895bebf (WIP: local changes before sync)
-
 - CPU: 2 vCPU
 - RAM: 1–2 GB
 - Диск: 16+ GB (SSD)
@@ -19,8 +12,6 @@ Clean and reproducible installation guide for MMDVMHost running in a Proxmox vir
 - Создан пользователь с правами sudo
 ---
 Порядок установки:
-
-<<<<<<< HEAD
 1. Подготавливаем систему к установке (обновляем список пакетов и установленные пакеты)
 ``` Bash
 sudo apt update && sudo apt upgrade -y
@@ -197,29 +188,3 @@ sudo journalctl -u mmdvmhost -f
 апр 23 18:30:23 MMDVMHost MMDVMHost[890]: D: 2026-04-23 15:30:23.076 DMR Slot 2, Embedded Talker Alias >
 апр 23 18:30:23 MMDVMHost MMDVMHost[890]: D: 2026-04-23 15:30:23.076 0000:  04 00 98 52 36 59 42 55 20 >
 ```
-=======
-# 📌 1. Overview
-
-This guide installs:
-- MMDVMHost digital voice gateway
-- systemd service
-- FTDI USB modem support
-- YSF/DMR-ready base
-
----
-
-# ⚙️ 2. Requirements
-
-- Debian 11/12 or Ubuntu 22.04+
-- Proxmox VM
-- USB FTDI modem (0403:6015)
-- Internet access
-
----
-
-# 🔧 3. System preparation
-
-```bash
-sudo apt update && sudo apt upgrade -y
-sudo apt purge -y modemmanager
->>>>>>> 895bebf (WIP: local changes before sync)
