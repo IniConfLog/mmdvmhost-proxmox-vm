@@ -12,54 +12,12 @@
 - Создан пользователь с правами sudo
 ---
 Порядок установки:
-1. Подготавливаем систему к установке (обновляем список пакетов и установленные пакеты)
+1. В командной строке запускаем скрипт:
 ``` Bash
-sudo apt update && sudo apt upgrade -y
+sudo apt update && sudo apt install -y curl git && \
+curl -fsSL https://raw.githubusercontent.com/IniConfLog/mmdvmhost-proxmox-vm/main/install.sh | sudo bash
 ```
-2. Удаляем потенциально конфликтующий сервис USB-модемов
-``` Bash
-sudo apt purge -y modemmanager
-```
-3. Устанавливаем зависимоссти (скачиваем и устанавливаем необходимые для сборки пакеты)
-``` Bash
-sudo apt install -y \
-  git build-essential cmake \
-  libusb-1.0-0-dev \
-  libcurl4-openssl-dev \
-  libssl-dev \
-  libwxgtk3.2-dev \
-  libasio-dev \
-  libudev-dev \
-  libncurses-dev \
-  nlohmann-json3-dev \
-  libmosquitto-dev mosquitto \
-  usbutils lsof htop strace
-```
-4. Создаём служебного пользователя mmdvm и добавляем его в группу dialout
-``` Bash
-sudo useradd -r -m -s /usr/sbin/nologin mmdvm
-sudo usermod -aG dialout mmdvm
-```
-5. Скачиваем ПО MMDVMHost и DMRGateway с гитхаба разработчика (Jonathan Naylor) https://github.com/g4klx и предоставляем права пользователю mmdvm на папки с ПО
-``` Bash
-cd /opt
-sudo git clone https://github.com/g4klx/MMDVMHost.git
-sudo git clone https://github.com/g4klx/DMRGateway.git
-sudo chown -R mmdvm:mmdvm MMDVMHost DMRGateway
-```
-6. Компилируем проект из исходников с использованием системных и сторонних библиотек
-``` Bash
-# MMDVMHost
-cd /opt/MMDVMHost
-sudo -u mmdvm make clean
-sudo -u mmdvm make -j$(nproc)
-
-# DMRGateway
-cd /opt/DMRGateway
-sudo -u mmdvm make clean
-sudo -u mmdvm make -j$(nproc)
-```
-7. Проверяем что система видит USB модем MMDVM
+2. Проверяем что система видит USB модем MMDVM
 ``` Bash
 lsusb
 ls -l /dev/ttyUSB*
@@ -74,7 +32,7 @@ crw-rw---- 1 root dialout 188, 0 апр 21 10:01 /dev/ttyUSB0
 итого 0
 lrwxrwxrwx 1 root root 13 апр 18 06:49 usb-FTDI_FT230X_Basic_UART_DB00PE5A-if00-port0 -> ../../ttyUSB0
 ```
-8. Настраиваем MMDVMHost:
+3. Настраиваем MMDVMHost:
 ``` Bash
 sudo nano /opt/MMDVMHost/MMDVMHost.ini
 ```
@@ -100,11 +58,11 @@ TXDelay=100
 - Если установлен чип STM32F4xx или STM32F7xx - UARTSpeed=115200;
 - Если установлен более новый чип STM32F105xx - UARTSpeed=460800;
 - Чаще всего на китайских модемах установлены старые чипы, новые установлены на модемах разработанных Алексеем RN6LJT в 2024/2025 годах.
-9. Настраиваем DMRGateway:
+4. Настраиваем DMRGateway:
 ``` Bash
 sudo nano /opt/DMRGateway/DMRGateway.ini
 ```
-10. Создаем системные фоновые сервисы для MMDVMHost и DMRGateway, которые будут обеспечивать:
+5. Создаем системные фоновые сервисы для MMDVMHost и DMRGateway, которые будут обеспечивать:
 - автозапуск программ при старте системы;
 - постоянную работу в фоне;
 - автоматический перезапуск при падении;
@@ -144,7 +102,7 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target
 ```
-11. Запускаем сервисы
+6. Запускаем сервисы
 ``` Bash
 sudo systemctl daemon-reload
 sudo systemctl enable dmrgateway
@@ -152,12 +110,12 @@ sudo systemctl enable mmdvmhost
 sudo systemctl start dmrgateway
 sudo systemctl start mmdvmhost
 ```
-12. Проверяем статус
+7. Проверяем статус
 ``` Bash
 sudo systemctl status dmrgateway
 sudo systemctl status mmdvmhost
 ```
-13. Проверяем логи
+8. Проверяем логи
 ``` Bash
 sudo journalctl -u dmrgateway -f
 sudo journalctl -u mmdvmhost -f
