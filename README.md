@@ -13,16 +13,16 @@
 ---
 Порядок установки:
 1. В командной строке запускаем скрипт, который:
-обновит систему (apt update)
-установит базовые зависимости (curl, git)
-удалит конфликтующий modemmanager
-установит библиотеки, необходимые для сборки
-создаст пользователя mmdvm
-загрузит исходники:
-MMDVMHost
-DMRGateway
-сборерет проект из исходников
-подготовит систему для работы с USB MMDVM модемом
+- обновит систему (apt update)
+- установит базовые зависимости (curl, git)
+- удалит конфликтующий modemmanager
+- установит библиотеки, необходимые для сборки
+- создаст пользователя mmdvm
+- загрузит исходники:
+     MMDVMHost
+     DMRGateway
+- сборерет проект из исходников
+- подготовит систему для работы с USB MMDVM модемом
 ``` Bash
 sudo apt update && sudo apt install -y curl git && \
 curl -fsSL https://raw.githubusercontent.com/IniConfLog/mmdvmhost-proxmox-vm/main/install.sh | sudo bash
