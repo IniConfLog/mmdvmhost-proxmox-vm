@@ -147,4 +147,15 @@ sudo journalctl -u mmdvmhost -f
         CPU: 46.810s
      CGroup: /system.slice/mmdvmhost.service
              └─890 /opt/MMDVMHost/MMDVMHost /opt/MMDVMHost/MMDVMHost.ini
+
+апр 23 18:29:06 MMDVMHost MMDVMHost[890]: D: 2026-04-23 15:29:06.319 0000:  04 00 9A 52 31 5A 41 41 47 >
+апр 23 18:29:07 MMDVMHost MMDVMHost[890]: M: 2026-04-23 15:29:07.040 DMR Slot 2, Talker Alias "R1ZAAG R>
+апр 23 18:29:07 MMDVMHost MMDVMHost[890]: D: 2026-04-23 15:29:07.040 DMR Slot 2, Talker Alias (Data For>
+апр 23 18:29:07 MMDVMHost MMDVMHost[890]: D: 2026-04-23 15:29:07.040 DMR Slot 2, Embedded Talker Alias >
+апр 23 18:29:07 MMDVMHost MMDVMHost[890]: D: 2026-04-23 15:29:07.040 0000:  05 00 20 52 31 5A 41 41 47 >
+апр 23 18:30:06 MMDVMHost MMDVMHost[890]: M: 2026-04-23 15:30:06.198 DMR Slot 2, received network end o>
+апр 23 18:30:22 MMDVMHost MMDVMHost[890]: M: 2026-04-23 15:30:22.477 DMR Slot 2, received network voice>
+апр 23 18:30:23 MMDVMHost MMDVMHost[890]: D: 2026-04-23 15:30:23.075 DMR Slot 2, Talker Alias (Data For>
+апр 23 18:30:23 MMDVMHost MMDVMHost[890]: D: 2026-04-23 15:30:23.076 DMR Slot 2, Embedded Talker Alias >
+апр 23 18:30:23 MMDVMHost MMDVMHost[890]: D: 2026-04-23 15:30:23.076 0000:  04 00 98 52 36 59 42 55 20 >
 ```
