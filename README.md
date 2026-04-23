@@ -77,6 +77,7 @@ sudo nano /opt/DMRGateway/DMRGateway.ini
 - постоянную работу в фоне;
 - автоматический перезапуск при падении;
 - централизованные логи.
+
 DMRGateway
 ``` Bash
 sudo nano /etc/systemd/system/dmrgateway.service
