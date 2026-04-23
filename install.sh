@@ -1,20 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# MMDVMHost + DMRGateway installer
-# Author: Ini
-# Repo: https://github.com/<your-user>/mmdvm-installer
+echo "===== MMDVMHost + DMRGateway INSTALL START ====="
 
-LOG_FILE="/var/log/mmdvm_install.log"
-exec > >(tee -a "$LOG_FILE") 2>&1
-
-echo "===== MMDVM INSTALL START ====="
-
-sudo apt update && sudo apt upgrade -y
-sudo apt purge -y modemmanager || true
-
-sudo apt install -y \
-  git build-essential cmake \
+# ---------------------------
+# Base dependencies
+# ---------------------------
+echo "[1/6] Installing base dependencies..."
+sudo apt update
+sudo apt install -y curl git build-essential cmake \
   libusb-1.0-0-dev \
   libcurl4-openssl-dev \
   libssl-dev \
@@ -26,12 +20,25 @@ sudo apt install -y \
   libmosquitto-dev mosquitto \
   usbutils lsof htop strace
 
+# ---------------------------
+# Remove conflicts
+# ---------------------------
+echo "[2/6] Removing modemmanager (USB conflict)..."
+sudo apt purge -y modemmanager || true
+
+# ---------------------------
+# User
+# ---------------------------
+echo "[3/6] Creating user mmdvm..."
 if ! id "mmdvm" &>/dev/null; then
     sudo useradd -r -m -s /usr/sbin/nologin mmdvm
 fi
-
 sudo usermod -aG dialout mmdvm
 
+# ---------------------------
+# Source code
+# ---------------------------
+echo "[4/6] Cloning repositories..."
 cd /opt
 
 if [ ! -d /opt/MMDVMHost ]; then
@@ -44,12 +51,21 @@ fi
 
 sudo chown -R mmdvm:mmdvm /opt/MMDVMHost /opt/DMRGateway
 
+# ---------------------------
+# Build
+# ---------------------------
+echo "[5/6] Building MMDVMHost..."
 cd /opt/MMDVMHost
 sudo -u mmdvm make clean || true
 sudo -u mmdvm make -j"$(nproc)"
 
+echo "[5/6] Building DMRGateway..."
 cd /opt/DMRGateway
 sudo -u mmdvm make clean || true
 sudo -u mmdvm make -j"$(nproc)"
 
-echo "===== INSTALL COMPLETE ====="
+# ---------------------------
+# Done
+# ---------------------------
+echo "[6/6] Installation completed successfully!"
+echo "Log saved to /var/log/mmdvm_install.log"
