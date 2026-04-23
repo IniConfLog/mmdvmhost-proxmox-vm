@@ -27,7 +27,7 @@
 sudo apt update && sudo apt install -y curl git && \
 curl -fsSL https://raw.githubusercontent.com/IniConfLog/mmdvmhost-proxmox-vm/main/install.sh | sudo bash
 ```
-2. После окончание установки проверяем что система видит USB модем MMDVM
+2. После окончания установки проверяем что система видит USB модем MMDVM
 ``` Bash
 lsusb
 ls -l /dev/ttyUSB*
