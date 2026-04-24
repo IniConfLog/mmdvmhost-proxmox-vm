@@ -1,4 +1,4 @@
-# Инструкция по установке и настройке MMDVMHost + DMRGateway в виртуальной машине Proxmox с USB FTDI MMDVM модемом.
+# Инструкция по установке и настройке MMDVMHost + DMRGateway в виртуальной машине Linux с USB FTDI MMDVM модемом.
 
 ⚠️ Требования к виртуальной машине (ВМ):
 - CPU: 2 vCPU
