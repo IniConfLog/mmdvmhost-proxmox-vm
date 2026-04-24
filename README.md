@@ -23,6 +23,11 @@
      DMRGateway
 - сборерет проект из исходников
 - подготовит систему для работы с USB MMDVM модемом
+- Создаст системные фоновые сервисы для MMDVMHost и DMRGateway, которые будут обеспечивать:
+     - автозапуск программ при старте системы;
+     - постоянную работу в фоне;
+     - автоматический перезапуск при падении;
+     - централизованные логи.
 ``` Bash
 sudo apt update && sudo apt install -y curl git && \
 curl -fsSL https://raw.githubusercontent.com/IniConfLog/mmdvmhost-proxmox-vm/main/install.sh | sudo bash
@@ -72,59 +77,7 @@ TXDelay=100
 ``` Bash
 sudo nano /opt/DMRGateway/DMRGateway.ini
 ```
-5. Создаем системные фоновые сервисы для MMDVMHost и DMRGateway, которые будут обеспечивать:
-- автозапуск программ при старте системы;
-- постоянную работу в фоне;
-- автоматический перезапуск при падении;
-- централизованные логи.
-
-DMRGateway
-``` Bash
-sudo nano /etc/systemd/system/dmrgateway.service
-```
-``` Bash
-[Unit]
-Description=DMRGateway
-After=network.target
-
-[Service]
-User=dmrgateway
-Group=dmrgateway
-ExecStart=/opt/DMRGateway/DMRGateway /opt/DMRGateway/DMRGateway.ini
-
-Restart=on-failure
-RestartSec=5
-
-StartLimitIntervalSec=120
-StartLimitBurst=3
-
-[Install]
-WantedBy=multi-user.target
-```
-MMDVMHost 
-``` Bash
-sudo nano /etc/systemd/system/mmdvmhost.service
-```
-``` Bash
-[Unit]
-Description=MMDVMHost
-After=network.target
-
-[Service]
-User=mmdvm
-Group=mmdvm
-ExecStart=/opt/MMDVMHost/MMDVMHost /opt/MMDVMHost/MMDVMHost.ini
-
-Restart=on-failure
-RestartSec=5
-
-StartLimitIntervalSec=120
-StartLimitBurst=3
-
-[Install]
-WantedBy=multi-user.target
-```
-6. Запускаем сервисы
+5. Запускаем сервисы
 ``` Bash
 sudo systemctl daemon-reload
 sudo systemctl enable dmrgateway
@@ -132,12 +85,12 @@ sudo systemctl enable mmdvmhost
 sudo systemctl start dmrgateway
 sudo systemctl start mmdvmhost
 ```
-7. Проверяем статус
+6. Проверяем статус
 ``` Bash
 sudo systemctl status dmrgateway
 sudo systemctl status mmdvmhost
 ```
-8. Проверяем логи
+7. Проверяем логи
 ``` Bash
 sudo journalctl -u dmrgateway -f
 sudo journalctl -u mmdvmhost -f
