@@ -65,6 +65,52 @@ sudo -u mmdvm make clean || true
 sudo -u mmdvm make -j"$(nproc)"
 
 # ---------------------------
+# Systemd services
+# ---------------------------
+echo "[6/7] Creating systemd services..."
+
+# --- DMRGateway service ---
+cat > /etc/systemd/system/dmrgateway.service << 'EOF'
+[Unit]
+Description=DMRGateway
+After=network.target
+
+[Service]
+User=mmdvm
+Group=mmdvm
+ExecStart=/opt/DMRGateway/DMRGateway /opt/DMRGateway/DMRGateway.ini
+
+Restart=on-failure
+RestartSec=5
+
+StartLimitIntervalSec=120
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# --- MMDVMHost service ---
+cat > /etc/systemd/system/mmdvmhost.service << 'EOF'
+[Unit]
+Description=MMDVMHost
+After=network.target
+
+[Service]
+User=mmdvm
+Group=mmdvm
+ExecStart=/opt/MMDVMHost/MMDVMHost /opt/MMDVMHost/MMDVMHost.ini
+
+Restart=on-failure
+RestartSec=5
+
+StartLimitIntervalSec=120
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
+EOF
+# ---------------------------
 # Done
 # ---------------------------
 echo "[6/6] Installation completed successfully!"
