@@ -88,9 +88,15 @@ Description=DMRGateway
 After=network.target
 
 [Service]
-User=mmdvm
+User=dmrgateway
+Group=dmrgateway
 ExecStart=/opt/DMRGateway/DMRGateway /opt/DMRGateway/DMRGateway.ini
+
 Restart=on-failure
+RestartSec=5
+
+StartLimitIntervalSec=120
+StartLimitBurst=3
 
 [Install]
 WantedBy=multi-user.target
@@ -102,13 +108,18 @@ sudo nano /etc/systemd/system/mmdvmhost.service
 ``` Bash
 [Unit]
 Description=MMDVMHost
-After=dmrgateway.service
-Requires=dmrgateway.service
+After=network.target
 
 [Service]
 User=mmdvm
+Group=mmdvm
 ExecStart=/opt/MMDVMHost/MMDVMHost /opt/MMDVMHost/MMDVMHost.ini
+
 Restart=on-failure
+RestartSec=5
+
+StartLimitIntervalSec=120
+StartLimitBurst=3
 
 [Install]
 WantedBy=multi-user.target
